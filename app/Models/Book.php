@@ -18,6 +18,7 @@ class Book extends Model
         'title',
         'description',
         'rating',
+        'position',
     ];
 
     public function author()

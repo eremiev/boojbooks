@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookListController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::resource('book', BookListController::class, [
+    'only' => ['index', 'create', 'show', 'edit']
+]);
