@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\ResponseCode;
 use App\Queries\Book\Index;
 use App\Queries\Book\Show;
 use App\Queries\Book\Store;
@@ -20,9 +21,11 @@ class BookController extends Controller
      */
     public function index(BookRequest $request)
     {
-        $books = (new Index())->run($request);
+        $inputs = $request->only('column', 'order', 'per_page');
 
-        return response()->json($books, 200);
+        $books = (new Index($inputs))->run();
+
+        return response()->json($books, ResponseCode::OK);
     }
 
     /**
@@ -36,7 +39,7 @@ class BookController extends Controller
         $inputs = $request->only('title', 'description', 'rating', 'author_id', 'position');
         $book = (new Store())->run($inputs);
 
-        return response()->json($book, 202);
+        return response()->json($book, ResponseCode::CREATED);
     }
 
     /**
@@ -49,7 +52,7 @@ class BookController extends Controller
     {
         $book = (new Show())->run($id);
 
-        return response()->json($book, 200);
+        return response()->json($book, ResponseCode::OK);
     }
 
     /**
@@ -63,7 +66,7 @@ class BookController extends Controller
     {
         $book = (new Update())->run($id, $request);
 
-        return response()->json($book, 200);
+        return response()->json($book, ResponseCode::OK);
     }
 
     /**
@@ -76,6 +79,6 @@ class BookController extends Controller
     {
         (new Destroy())->run($id);
 
-        return response()->json(null,200);
+        return response()->json(null,ResponseCode::OK);
     }
 }

@@ -4,7 +4,7 @@
 
     <div class="col-lg-10 col-lg-push-1">
 
-        {!! Form::open(['route' => ['book.store'],
+        {!! Form::open(['route' => ['books.store'],
                         'method' => 'POST',
                         'class'=>'form-horizontal'
                         ]) !!}

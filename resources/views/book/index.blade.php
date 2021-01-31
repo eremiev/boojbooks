@@ -4,7 +4,7 @@
 
     <div class="row">
         <div class="col-lg-12">
-            <a href="{{route('book.create')}}">
+            <a href="{{route('books.create')}}">
                 <button class="source-button btn btn-primary btn-xs">Add Book</button>
             </a>
         </div>
@@ -16,7 +16,7 @@
             <div class="bs-component">
                 <ul class="list-group">
                     @foreach($books as $book)
-                        <li class="list-group-item text-center" href="{{ route('book.edit',[$book->id],false) }}">
+                        <li class="list-group-item text-center" href="{{ route('books.edit',[$book->id],false) }}">
                             <div class="row">
                                 <div class="col-lg-8" style="margin: auto;">
                                     {{$book->title}}
@@ -25,11 +25,11 @@
                                 <div class="col-lg-4">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <a href="{{ URL::route('book.edit',[$book->id],false) }}" class="btn btn-xs btn-primary pull-left">Edit</a>
+                                            <a href="{{ URL::route('books.edit',[$book->id],false) }}" class="btn btn-xs btn-primary pull-left">Edit</a>
                                         </div>
                                         <div class="col-lg-6">
                                             {!! Form::open([
-                                          'route' => ['book.destroy', $book->id],
+                                          'route' => ['books.destroy', $book->id],
                                           'method' => 'delete',
                                           'class' => '']) !!}
                                             {!! Form::submit('Delete',

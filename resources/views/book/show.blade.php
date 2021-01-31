@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="jumbotron">
-        <a href="{{route('book.index')}}" ><button class="btn btn-light">Back</button></a>
+        <a href="{{route('books.index')}}" ><button class="btn btn-light">Back</button></a>
         <p><b>Title:</b> {{ $book->title}}</p>
         <p><b>Description:</b> {{ $book->description }}</p>
         <p><b>Rating:</b> {{ $book->rating}}</p>

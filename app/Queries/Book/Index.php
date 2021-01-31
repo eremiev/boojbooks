@@ -4,20 +4,29 @@ namespace App\Queries\Book;
 
 
 use App\Models\Book;
-use App\Http\Requests\BookRequest;
 
 class Index
 {
-    public function run(BookRequest $request)
-    {
+    private $column;
+    private $order;
+    private $perPage;
 
-        if ($request->has('column')) {
-            $query = Book::orderBy($request->get('column'), !empty($request->get('order')) ? $request->get('order') : 'asc');
+    public function __construct($inputs)
+    {
+        $this->column = isset($inputs['column']) && in_array($inputs['column'], (new Book())->getTableColumns()) ? $inputs['column'] : null;
+        $this->order = isset($inputs['order']) ? $inputs['order'] : 'asc';
+        $this->perPage = isset($inputs['per_page']) ? $inputs['per_page'] : 10;
+    }
+
+    public function run()
+    {
+        if (!empty($this->column)) {
+            $query = Book::orderBy($this->column, $this->order);
         } else {
             $query = Book::orderBy('position');
         }
 
-        $books = $query->get();
+        $books = $query->paginate($this->perPage);
 
         return $books;
     }

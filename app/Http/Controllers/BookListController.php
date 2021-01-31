@@ -21,7 +21,8 @@ class BookListController extends Controller
      */
     public function index(BookRequest $request)
     {
-        $books = (new Index())->run($request);
+        $inputs = $request->only('column', 'order', 'per_page');
+        $books = (new Index($inputs))->run();
 
 
         return view('book.index', compact(['books']));
@@ -51,7 +52,7 @@ class BookListController extends Controller
         $inputs = $request->only('title', 'description', 'rating', 'author_id', 'position');
         (new Store())->run($inputs);
 
-        return Redirect::route('book.index');
+        return Redirect::route('books.index');
     }
 
     /**
@@ -91,7 +92,7 @@ class BookListController extends Controller
     {
         (new Update())->run($id, $request);
 
-        return Redirect::route('book.index');
+        return Redirect::route('books.index');
     }
 
     /**
@@ -104,7 +105,7 @@ class BookListController extends Controller
     {
         (new Destroy())->run($id);
 
-        return Redirect::route('book.index');
+        return Redirect::route('books.index');
 
     }
 

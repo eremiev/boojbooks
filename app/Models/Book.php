@@ -26,4 +26,8 @@ class Book extends Model
     {
         return $this->belongsTo(Author::class);
     }
+
+    public function getTableColumns() {
+        return $this->getConnection()->getSchemaBuilder()->getColumnListing($this->getTable());
+    }
 }

@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('book', BookController::class, [
+Route::resource('books', BookController::class, [
     'only' => ['index', 'store', 'show', 'update', 'destroy'],
     'as' => 'api'
 ]);

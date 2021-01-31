@@ -4,7 +4,7 @@
 
     <div class="col-lg-10 col-lg-push-1">
 
-        {!! Form::open(['route' => ['book.update', $book->id],
+        {!! Form::open(['route' => ['books.update', $book->id],
                         'method' => 'PUT',
                         'class'=>'form-horizontal']) !!}
         <fieldset>
@@ -53,7 +53,7 @@
             <div class="form-group pull-right">
                 <div id="buttons">
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{route('book.index')}}">
+                    <a href="{{route('books.index')}}">
                         <button class="source-button btn btn-primary btn-xs">Back</button>
                     </a>
                 </div>

@@ -19,6 +19,6 @@ Route::get('/', function () {
 });
 
 
-Route::resource('book', BookListController::class, [
+Route::resource('books', BookListController::class, [
     'only' => ['index', 'create', 'store', 'show', 'edit', 'update', 'destroy']
 ]);

@@ -28,7 +28,7 @@ class BookRequest extends Request
 
                 $rules['title'] = 'required|min:3|max:150';
                 $rules['description'] = 'required|min:3|max:500';
-                $rules['rating'] = 'required|min:0|max:4';
+                $rules['rating'] = 'required|min:0|max:6|numeric';
 
                 break;
             default:

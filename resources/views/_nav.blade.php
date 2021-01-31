@@ -9,7 +9,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('book.index')}}">Books</a>
+                    <a class="nav-link" href="{{route('books.index')}}">Books</a>
                 </li>
             </ul>
         </div>
