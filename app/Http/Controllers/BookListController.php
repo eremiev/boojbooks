@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Author;
 use App\Queries\Book\Show;
 use App\Queries\Book\Index;
-use App\Queries\Book\Destroy;
-use App\Http\Requests\BookRequest;
 use App\Queries\Book\Store;
 use App\Queries\Book\Update;
+use App\Queries\Book\Destroy;
+use App\Http\Requests\BookRequest;
 use Illuminate\Support\Facades\Redirect;
 
 class BookListController extends Controller
@@ -24,9 +24,7 @@ class BookListController extends Controller
         $inputs = $request->only('column', 'order', 'per_page');
         $books = (new Index($inputs))->run();
 
-
         return view('book.index', compact(['books']));
-
     }
 
     /**

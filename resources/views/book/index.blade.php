@@ -19,8 +19,7 @@
                         <li class="list-group-item text-center" href="{{ route('books.edit',[$book->id],false) }}">
                             <div class="row">
                                 <div class="col-lg-8" style="margin: auto;">
-                                    {{$book->title}}
-
+                                    <a href="{{ route('books.show',[$book->id]) }}">{{$book->title}}</a>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="row">

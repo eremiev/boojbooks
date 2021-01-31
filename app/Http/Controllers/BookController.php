@@ -22,7 +22,6 @@ class BookController extends Controller
     public function index(BookRequest $request)
     {
         $inputs = $request->only('column', 'order', 'per_page');
-
         $books = (new Index($inputs))->run();
 
         return response()->json($books, ResponseCode::OK);
@@ -58,11 +57,11 @@ class BookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param BookRequest $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BookRequest $request, $id)
     {
         $book = (new Update())->run($id, $request);
 

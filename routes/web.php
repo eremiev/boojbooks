@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\BookListController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\BookListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return Redirect::route('books.index');
 });
 
 
