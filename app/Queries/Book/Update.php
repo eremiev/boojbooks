@@ -6,14 +6,14 @@ use App\Models\Book;
 
 class Update
 {
-    public function run($id, $inputs)
+    public function run($id, $request)
     {
-        return Book::where('id', $id)
-            ->update([
-                'title' => $inputs['title'],
-                'description' => $inputs['description'],
-                'rating' => $inputs['rating'],
-                'position' => $inputs['position'],
-            ]);
+        $book = Book::where('id', $id);
+
+        if ($request->has('position')) {
+            $book->update(['position' => $request->input('position')]);
+        }
+
+        return $book;
     }
 }

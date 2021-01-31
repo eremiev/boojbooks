@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Queries\Book\Index;
+use App\Queries\Book\Show;
 use App\Queries\Book\Store;
+use App\Queries\Book\Update;
 use Illuminate\Http\Request;
 use App\Queries\Book\Destroy;
 use App\Http\Requests\BookRequest;
@@ -19,9 +20,6 @@ class BookController extends Controller
      */
     public function index(BookRequest $request)
     {
-
-        dd('api.index');
-
         $books = (new Index())->run($request);
 
         return response()->json($books, 200);
@@ -35,13 +33,10 @@ class BookController extends Controller
      */
     public function store(BookRequest $request)
     {
-        dd('api.store');
-
-        $inputs = $request->only('title', 'description', 'rating', 'author', 'position');
+        $inputs = $request->only('title', 'description', 'rating', 'author_id', 'position');
         $book = (new Store())->run($inputs);
 
         return response()->json($book, 202);
-
     }
 
     /**
@@ -52,9 +47,7 @@ class BookController extends Controller
      */
     public function show($id)
     {
-        dd('api.show');
-
-        $book = Book::findOrFail($id);
+        $book = (new Show())->run($id);
 
         return response()->json($book, 200);
     }
@@ -68,8 +61,9 @@ class BookController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd('api.update');
+        $book = (new Update())->run($id, $request);
 
+        return response()->json($book, 200);
     }
 
     /**
@@ -80,8 +74,6 @@ class BookController extends Controller
      */
     public function destroy($id)
     {
-        dd('api.destroy');
-
         (new Destroy())->run($id);
 
         return response()->json(null,200);

@@ -3,18 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
-use Illuminate\Http\Request;
+use App\Queries\Book\Show;
+use App\Queries\Book\Index;
+use App\Queries\Book\Destroy;
+use App\Http\Requests\BookRequest;
+use App\Queries\Book\Store;
+use App\Queries\Book\Update;
+use Illuminate\Support\Facades\Redirect;
 
 class BookListController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
+     * @param BookRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(BookRequest $request)
     {
-        dd('web.index');
+        $books = (new Index())->run($request);
+
+
+        return view('book.index', compact(['books']));
+
     }
 
     /**
@@ -24,11 +35,23 @@ class BookListController extends Controller
      */
     public function create()
     {
-        dd('web.create');
-
         $authors = Author::all();
 
-        return view('books.create', compact(['authors']));
+        return view('book.create', compact(['authors']));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param BookRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(BookRequest $request)
+    {
+        $inputs = $request->only('title', 'description', 'rating', 'author_id', 'position');
+        (new Store())->run($inputs);
+
+        return Redirect::route('book.index');
     }
 
     /**
@@ -39,7 +62,9 @@ class BookListController extends Controller
      */
     public function show($id)
     {
-        dd('web.show');
+        $book = (new Show())->run($id);
+
+        return view('book.show', compact(['book']));
     }
 
     /**
@@ -50,7 +75,37 @@ class BookListController extends Controller
      */
     public function edit($id)
     {
-        dd('web.edit');
+        $book = (new Show())->run($id);
+
+        return view('book.edit', compact(['book']));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param BookRequest $request
+     * @param  int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(BookRequest $request, $id)
+    {
+        (new Update())->run($id, $request);
+
+        return Redirect::route('book.index');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function destroy($id)
+    {
+        (new Destroy())->run($id);
+
+        return Redirect::route('book.index');
+
     }
 
 }

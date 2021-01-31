@@ -3,6 +3,7 @@
 namespace App\Queries\Book;
 
 
+use App\Models\Author;
 use App\Models\Book;
 
 class Store
@@ -13,7 +14,8 @@ class Store
             'title' => $inputs['title'],
             'description' => $inputs['description'],
             'rating' => $inputs['rating'],
-            'position' => $inputs['position'],
+            'position' => isset($inputs['position']) ? $inputs['position'] : null,
+            'author_id' => Author::findOrFail($inputs['author_id'])->id
         ]);
     }
 }

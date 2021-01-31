@@ -10,15 +10,14 @@ class Index
 {
     public function run(BookRequest $request)
     {
-        $books = (new Book)->newQuery();
 
         if ($request->has('column')) {
-            $books = $books->orderBy($request->get('column'), $request->get('order'));
+            $query = Book::orderBy($request->get('column'), !empty($request->get('order')) ? $request->get('order') : 'asc');
         } else {
-            $books = $books->orderBy('position');
+            $query = Book::orderBy('position');
         }
 
-        $books->paginate(10);
+        $books = $query->get();
 
         return $books;
     }

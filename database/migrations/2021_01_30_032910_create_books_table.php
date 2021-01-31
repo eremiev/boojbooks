@@ -15,11 +15,21 @@ class CreateBooksTable extends Migration
     {
         Schema::create('books', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('author_id');
             $table->string('title', 150);
-            $table->string('description', 500);
+            $table->text('description')->nullable();
             $table->decimal('rating', 4);
-            $table->integer('position', 100)->nullable();
+            $table->integer('position')->nullable();
             $table->timestamps();
+
+
+            $table->index(['author_id']);
+
+            $table->foreign('author_id')
+                ->references('id')
+                ->on('authors')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
         });
     }
 
@@ -30,6 +40,12 @@ class CreateBooksTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('books');
+        if (Schema::hasTable('books')) {
+            Schema::table('books', function (Blueprint $table) {
+                $table->dropForeign('books_author_id_foreign');
+            });
+            Schema::dropIfExists('books');
+
+        }
     }
 }
